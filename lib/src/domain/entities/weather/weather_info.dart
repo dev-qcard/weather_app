@@ -20,7 +20,7 @@ class WeatherInfo extends Equatable {
 
   // Wind
   final double windSpeed;
-  final double verboseWindDirection;
+  final String verboseWindDirection;
 
   const WeatherInfo({
     required this.dateTime,

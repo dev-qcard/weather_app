@@ -1,4 +1,4 @@
-import 'package:weather_app/src/data/models/location/user_location_model.dart';
+import 'package:weather_app/src/data/models/location/user_verbose_location_model.dart';
 import 'package:weather_app/src/data/models/weather/weather_info_model.dart';
 
 abstract class ICacheManager {
@@ -7,6 +7,6 @@ abstract class ICacheManager {
   Future<List<WeatherInfoModel>> loadWeatherData();
 
   // Location
-  Future<void> cacheLocationData(UserLocationModel weatherData);
-  Future<UserLocationModel> loadLocationData();
+  Future<void> cacheLocationData(UserVerboseLocationModel weatherData);
+  Future<UserVerboseLocationModel> loadLocationData();
 }

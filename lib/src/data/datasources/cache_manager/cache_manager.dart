@@ -1,10 +1,10 @@
 import 'package:weather_app/src/data/datasources/cache_manager/i_cache_manager.dart';
-import 'package:weather_app/src/data/models/location/user_location_model.dart';
+import 'package:weather_app/src/data/models/location/user_verbose_location_model.dart';
 import 'package:weather_app/src/data/models/weather/weather_info_model.dart';
 
 class CacheManager implements ICacheManager {
   @override
-  Future<void> cacheLocationData(UserLocationModel weatherData) {
+  Future<void> cacheLocationData(UserVerboseLocationModel weatherData) {
     throw UnimplementedError();
   }
 
@@ -14,7 +14,7 @@ class CacheManager implements ICacheManager {
   }
 
   @override
-  Future<UserLocationModel> loadLocationData() {
+  Future<UserVerboseLocationModel> loadLocationData() {
     throw UnimplementedError();
   }
 

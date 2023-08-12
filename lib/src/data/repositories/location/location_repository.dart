@@ -1,4 +1,6 @@
 import 'package:dartz/dartz.dart';
+import 'package:weather_app/src/core/failures/api_problem.dart';
+import 'package:weather_app/src/core/failures/connection_failure.dart';
 import 'package:weather_app/src/core/failures/failure.dart';
 import 'package:weather_app/src/data/datasources/cache_manager/i_cache_manager.dart';
 import 'package:weather_app/src/data/datasources/connection_checker/i_connection_checker.dart';
@@ -19,6 +21,29 @@ class LocationRepository implements ILocationRepository {
 
   @override
   Future<Either<Failure, UserVerboseLocation>> getLocation() async {
-    throw UnimplementedError();
+    final isConnected = await connectionChecker.isConnected;
+
+    if (!isConnected) {
+      try {
+        final verboseLocationModel = await cacheManager.loadLocationData();
+        final verboseLocation = verboseLocationModel.toVerboseLocation();
+
+        return Right(verboseLocation);
+      } catch (_) {
+        return const Left(ConnectionFailure());
+      }
+    }
+
+    try {
+      final verboseLocationModel = await locationDatasource.getLocation();
+
+      await cacheManager.cacheLocationData(verboseLocationModel);
+
+      final verboseLocation = verboseLocationModel.toVerboseLocation();
+
+      return Right(verboseLocation);
+    } catch (_) {
+      return const Left(ApiProblemFailure());
+    }
   }
 }
