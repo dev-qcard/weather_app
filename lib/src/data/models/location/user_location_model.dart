@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 
-class UserLocation extends Equatable {
+class UserLocationModel extends Equatable {
   final double lattitude;
   final double longitude;
 
-  const UserLocation({
+  const UserLocationModel({
     required this.lattitude,
     required this.longitude,
   });
