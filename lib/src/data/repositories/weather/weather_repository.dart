@@ -1,14 +1,14 @@
 import 'package:dartz/dartz.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:weather_app/src/core/failures/api_problem.dart';
-import 'package:weather_app/src/core/failures/connection_failure.dart';
+import 'package:weather_app/src/core/failures/common/api_problem.dart';
+import 'package:weather_app/src/core/failures/common/connection_failure.dart';
+import 'package:weather_app/src/core/failures/common/location_failure.dart';
 import 'package:weather_app/src/core/failures/failure.dart';
-import 'package:weather_app/src/core/failures/location_failure.dart';
 import 'package:weather_app/src/data/datasources/cache_manager/i_cache_manager.dart';
 import 'package:weather_app/src/data/datasources/connection_checker/i_connection_checker.dart';
 import 'package:weather_app/src/data/datasources/weather/i_weather_datasource.dart';
-import 'package:weather_app/src/data/models/location/user_location_model.dart';
-import 'package:weather_app/src/domain/entities/location/user_location.dart';
+import 'package:weather_app/src/data/models/location/location_model.dart';
+import 'package:weather_app/src/domain/entities/location/location.dart';
 import 'package:weather_app/src/domain/entities/weather/weather_info.dart';
 import 'package:weather_app/src/domain/repositories/weather/i_weather_repository.dart';
 
@@ -24,7 +24,7 @@ class WeatherRepository implements IWeatherRepository {
   });
 
   @override
-  Future<Either<Failure, List<WeatherInfo>>> loadWeather(UserLocation userLocation) async {
+  Future<Either<Failure, List<WeatherInfo>>> loadWeather(Location userLocation) async {
     final permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) return const Left(LocationFailure());
 
@@ -45,7 +45,7 @@ class WeatherRepository implements IWeatherRepository {
 
     try {
       final weatherInfoModels = await weatherDatasource.loadWeather(
-        UserLocationModel(
+        LocationModel(
           latitude: position.latitude,
           longitude: position.longitude,
         ),

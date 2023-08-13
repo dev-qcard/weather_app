@@ -22,6 +22,10 @@ class WeatherInfo extends Equatable {
   final double windSpeed;
   final String verboseWindDirection;
 
+  // Location
+  final String city;
+  final String country;
+
   const WeatherInfo({
     required this.dateTime,
     required this.verboseWeather,
@@ -33,6 +37,8 @@ class WeatherInfo extends Equatable {
     required this.verboseHumidity,
     required this.windSpeed,
     required this.verboseWindDirection,
+    required this.city,
+    required this.country,
   });
 
   @override
@@ -48,6 +54,8 @@ class WeatherInfo extends Equatable {
       verboseHumidity,
       windSpeed,
       verboseWindDirection,
+      city,
+      country,
     ];
   }
 }

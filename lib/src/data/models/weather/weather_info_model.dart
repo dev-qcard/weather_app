@@ -25,6 +25,10 @@ class WeatherInfoModel extends Equatable {
   final double windSpeed;
   final double windDirection;
 
+  // Location
+  final String city;
+  final String country;
+
   const WeatherInfoModel({
     required this.dateTime,
     required this.verboseWeather,
@@ -34,6 +38,8 @@ class WeatherInfoModel extends Equatable {
     required this.humidity,
     required this.windSpeed,
     required this.windDirection,
+    required this.city,
+    required this.country,
   });
 
   @override
@@ -46,10 +52,13 @@ class WeatherInfoModel extends Equatable {
       maxTemperature,
       humidity,
       windSpeed,
+      city,
+      country,
     ];
   }
 
   Image _getWeatherImage(String verboseWeather) {
+    //! TODO Asset images for the weather
     return Image.network(
       'https://img.freepik.com/premium-vector/thunderstorm-icon-forecast-weather-illustration-symbol-cloud-ligthning-vector_744955-684.jpg?w=826',
     );
@@ -89,6 +98,8 @@ class WeatherInfoModel extends Equatable {
       verboseHumidity: _getVerboseHumidity(humidity),
       windSpeed: windSpeed,
       verboseWindDirection: _getVerboseWindDirection(windDirection),
+      city: city,
+      country: country,
     );
   }
 
@@ -136,6 +147,10 @@ class WeatherInfoModel extends Equatable {
         'speed': windSpeed,
         'deg': windDirection,
       },
+      'city': {
+        'name': city,
+        'country': country,
+      }
     };
   }
 
@@ -149,6 +164,8 @@ class WeatherInfoModel extends Equatable {
       humidity: (map['main']['humidity'] as num).toDouble(),
       windSpeed: (map['wind']['speed'] as num).toDouble(),
       windDirection: (map['wind']['deg'] as num).toDouble(),
+      city: map['city']['name'] as String,
+      country: map['city']['country'] as String,
     );
   }
 }
