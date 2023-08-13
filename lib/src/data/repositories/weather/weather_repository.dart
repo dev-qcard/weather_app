@@ -8,7 +8,6 @@ import 'package:weather_app/src/data/datasources/cache_manager/i_cache_manager.d
 import 'package:weather_app/src/data/datasources/connection_checker/i_connection_checker.dart';
 import 'package:weather_app/src/data/datasources/weather/i_weather_datasource.dart';
 import 'package:weather_app/src/data/models/location/location_model.dart';
-import 'package:weather_app/src/domain/entities/location/location.dart';
 import 'package:weather_app/src/domain/entities/weather/weather_info.dart';
 import 'package:weather_app/src/domain/repositories/weather/i_weather_repository.dart';
 
@@ -24,12 +23,7 @@ class WeatherRepository implements IWeatherRepository {
   });
 
   @override
-  Future<Either<Failure, List<WeatherInfo>>> loadWeather(Location userLocation) async {
-    final permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) return const Left(LocationFailure());
-
-    final position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.medium);
-
+  Future<Either<Failure, List<WeatherInfo>>> loadWeather() async {
     final isConnected = await connectionChecker.isConnected;
 
     if (!isConnected) {
@@ -42,6 +36,11 @@ class WeatherRepository implements IWeatherRepository {
         return const Left(ConnectionFailure());
       }
     }
+
+    final permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) return const Left(LocationFailure());
+
+    final position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.medium);
 
     try {
       final weatherInfoModels = await weatherDatasource.loadWeather(

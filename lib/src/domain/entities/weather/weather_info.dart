@@ -8,6 +8,7 @@ class WeatherInfo extends Equatable {
   // Weather
   final String verboseWeather;
   final Image weatherImage;
+  final Image weatherIcon;
 
   // Temperature
   final double temperature;
@@ -30,6 +31,7 @@ class WeatherInfo extends Equatable {
     required this.dateTime,
     required this.verboseWeather,
     required this.weatherImage,
+    required this.weatherIcon,
     required this.temperature,
     required this.minTemperature,
     required this.maxTemperature,
@@ -47,6 +49,7 @@ class WeatherInfo extends Equatable {
       dateTime,
       verboseWeather,
       weatherImage,
+      weatherIcon,
       temperature,
       minTemperature,
       maxTemperature,

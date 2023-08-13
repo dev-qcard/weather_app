@@ -67,4 +67,14 @@ class AuthService implements IAuthService {
       return const Left(ApiProblemFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, Success>> signOut() async {
+    try {
+      await authClient.signOut();
+      return const Right(Success());
+    } catch (_) {
+      return const Left(ApiProblemFailure());
+    }
+  }
 }

@@ -6,4 +6,5 @@ import 'package:weather_app/src/domain/entities/user/user_data.dart';
 abstract class IAuthService {
   Future<Either<Failure, Success>> signIn(UserData userData);
   Future<Either<Failure, Success>> signUp(UserData userData);
+  Future<Either<Failure, Success>> signOut();
 }

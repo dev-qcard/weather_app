@@ -58,10 +58,31 @@ class WeatherInfoModel extends Equatable {
   }
 
   Image _getWeatherImage(String verboseWeather) {
-    //! TODO Asset images for the weather
-    return Image.network(
-      'https://img.freepik.com/premium-vector/thunderstorm-icon-forecast-weather-illustration-symbol-cloud-ligthning-vector_744955-684.jpg?w=826',
-    );
+    if (verboseWeather == WeatherCodesTranslated.clear) {
+      return Image.asset('assets/images/clear.png');
+    } else if (verboseWeather == WeatherCodesTranslated.clouds) {
+      return Image.asset('assets/images/cloudy.png');
+    } else if (verboseWeather == WeatherCodesTranslated.rain) {
+      return Image.asset('assets/images/rainy.png');
+    } else if (verboseWeather == WeatherCodesTranslated.snow) {
+      return Image.asset('assets/images/snow.png');
+    } else {
+      return Image.asset('assets/images/thunder.png');
+    }
+  }
+
+  Image _getWeatherIconImage(String verboseWeather) {
+    if (verboseWeather == WeatherCodesTranslated.clear) {
+      return Image.asset('assets/icons/clear_icon.png');
+    } else if (verboseWeather == WeatherCodesTranslated.clouds) {
+      return Image.asset('assets/icons/cloudy_icon.png');
+    } else if (verboseWeather == WeatherCodesTranslated.rain) {
+      return Image.asset('assets/icons/rainy_icon.png');
+    } else if (verboseWeather == WeatherCodesTranslated.snow) {
+      return Image.asset('assets/icons/snow_icon.png');
+    } else {
+      return Image.asset('assets/icons/thunder_icon.png');
+    }
   }
 
   String _getVerboseHumidity(double humidity) {
@@ -91,6 +112,7 @@ class WeatherInfoModel extends Equatable {
       dateTime: dateTime,
       verboseWeather: verboseWeather,
       weatherImage: _getWeatherImage(verboseWeather),
+      weatherIcon: _getWeatherIconImage(verboseWeather),
       temperature: temperature,
       minTemperature: minTemperature,
       maxTemperature: maxTemperature,
