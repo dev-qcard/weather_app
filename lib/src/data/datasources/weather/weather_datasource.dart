@@ -13,9 +13,8 @@ class WeatherDatasource implements IWeatherDatasource {
 
   @override
   Future<List<WeatherInfoModel>> loadWeather(LocationModel userLocation) async {
-    // try {
     final response = await client.request(
-      'https://api.openweathermap.org/data/2.5/forecast?lat=${userLocation.latitude}&lon=${userLocation.longitude}&units=metric&appid=$apiKey',
+      'https://api.openweathermap.org/data/2.5/forecast?lang=ru&lat=${userLocation.latitude}&lon=${userLocation.longitude}&units=metric&appid=$apiKey',
     );
 
     final rawWeatherInfoMapList = (response.data['list'] as List<dynamic>).take(4).toList();
@@ -34,8 +33,5 @@ class WeatherDatasource implements IWeatherDatasource {
         weatherInfoMapList.map((e) => WeatherInfoModel.fromMap(e)).toList();
 
     return weatherInfoModelList;
-    // } catch (_) {
-    //   throw Exception();
-    // }
   }
 }

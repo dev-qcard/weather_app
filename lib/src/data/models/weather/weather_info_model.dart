@@ -154,18 +154,15 @@ class WeatherInfoModel extends Equatable {
     };
   }
 
-  factory WeatherInfoModel.fromMap(Map<String, dynamic> map) {
-    return WeatherInfoModel(
-      dateTime: DateTime.parse(map['dt_txt']),
-      verboseWeather: _getVerboseWeather(map['weather'][0]['main'] as String),
-      temperature: (map['main']['temp'] as num).toDouble(),
-      minTemperature: (map['main']['temp_min'] as num).toDouble(),
-      maxTemperature: (map['main']['temp_max'] as num).toDouble(),
-      humidity: (map['main']['humidity'] as num).toDouble(),
-      windSpeed: (map['wind']['speed'] as num).toDouble(),
-      windDirection: (map['wind']['deg'] as num).toDouble(),
-      city: map['city']['name'] as String,
-      country: map['city']['country'] as String,
-    );
-  }
+  WeatherInfoModel.fromMap(Map<String, dynamic> map)
+      : dateTime = DateTime.parse(map['dt_txt']),
+        verboseWeather = _getVerboseWeather(map['weather'][0]['main'] as String),
+        temperature = (map['main']['temp'] as num).toDouble(),
+        minTemperature = (map['main']['temp_min'] as num).toDouble(),
+        maxTemperature = (map['main']['temp_max'] as num).toDouble(),
+        humidity = (map['main']['humidity'] as num).toDouble(),
+        windSpeed = (map['wind']['speed'] as num).toDouble(),
+        windDirection = (map['wind']['deg'] as num).toDouble(),
+        city = map['city']['name'] as String,
+        country = map['city']['country'] as String;
 }
