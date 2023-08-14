@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:weather_app/src/presentation/bloc/auth/auth_bloc.dart';
+import 'package:weather_app/src/presentation/bloc/navigation/navigation_bloc.dart';
 import 'package:weather_app/src/presentation/bloc/weather/weather_bloc.dart';
 import 'package:weather_app/src/presentation/common/common.dart';
 import 'package:weather_app/src/presentation/styles/fonts.dart';
@@ -69,17 +71,31 @@ class _WeatherPageState extends State<WeatherPage> {
                     children: [
                       Common.smallPadding,
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Icon(
-                            Icons.gps_fixed,
-                            color: Colors.white,
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.gps_fixed,
+                                color: Colors.white,
+                              ),
+                              Common.horizontalDivider,
+                              Text(
+                                '${data.city}, ${data.country}',
+                                style: Fonts.b2.copyWith(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
                           ),
-                          Common.horizontalDivider,
-                          Text(
-                            '${data.city}, ${data.country}',
-                            style: Fonts.b2.copyWith(
-                              color: Colors.white,
-                            ),
+                          IconButton(
+                            onPressed: () {
+                              BlocProvider.of<AuthBloc>(context).add(const SignOutEvent());
+                              BlocProvider.of<NavigationBloc>(context).add(const SignInPageEvent());
+                            },
+                            icon: const Icon(Icons.logout),
+                            color: Colors.white,
+                            splashRadius: 20,
                           ),
                         ],
                       ),

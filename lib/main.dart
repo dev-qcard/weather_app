@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:weather_app/src/injection.dart';
 import 'package:weather_app/src/presentation/bloc/auth/auth_bloc.dart';
 import 'package:weather_app/src/presentation/bloc/navigation/navigation_bloc.dart';
@@ -21,6 +22,7 @@ class WeatherApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FlutterNativeSplash.remove();
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
         statusBarColor: Colors.white,
@@ -64,11 +66,18 @@ class WeatherApp extends StatelessWidget {
                       child: const SignUpPage(),
                     );
                   } else if (state is NavigationWeather) {
-                    return BlocProvider<WeatherBloc>(
-                      create: (context) => sl()
-                        ..add(
-                          const LoadWeatherEvent(),
+                    return MultiBlocProvider(
+                      providers: [
+                        BlocProvider<WeatherBloc>(
+                          create: (context) => sl()
+                            ..add(
+                              const LoadWeatherEvent(),
+                            ),
                         ),
+                        BlocProvider<AuthBloc>(
+                          create: (context) => sl(),
+                        ),
+                      ],
                       child: const WeatherPage(),
                     );
                   }

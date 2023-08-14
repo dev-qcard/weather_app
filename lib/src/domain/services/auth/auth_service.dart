@@ -7,7 +7,7 @@ import 'package:weather_app/src/core/failures/auth/user_disabled_failure.dart';
 import 'package:weather_app/src/core/failures/auth/user_not_found_failure.dart';
 import 'package:weather_app/src/core/failures/auth/weak_password_failure.dart';
 import 'package:weather_app/src/core/failures/auth/wrong_password_failure.dart';
-import 'package:weather_app/src/core/failures/common/api_problem.dart';
+import 'package:weather_app/src/core/failures/common/connection_failure.dart';
 import 'package:weather_app/src/core/failures/failure.dart';
 import 'package:weather_app/src/core/success/success.dart';
 import 'package:weather_app/src/domain/entities/user/user_data.dart';
@@ -38,10 +38,10 @@ class AuthService implements IAuthService {
       } else if (e.code == 'user-not-found') {
         return const Left(UserNotFoundFailure());
       } else {
-        return const Left(ApiProblemFailure());
+        return const Left(ConnectionFailure());
       }
     } catch (_) {
-      return const Left(ApiProblemFailure());
+      return const Left(ConnectionFailure());
     }
   }
 
@@ -61,10 +61,10 @@ class AuthService implements IAuthService {
       } else if (e.code == 'invalid-email') {
         return const Left(InvalidEmailFailure());
       } else {
-        return const Left(ApiProblemFailure());
+        return const Left(ConnectionFailure());
       }
     } catch (_) {
-      return const Left(ApiProblemFailure());
+      return const Left(ConnectionFailure());
     }
   }
 
@@ -74,7 +74,7 @@ class AuthService implements IAuthService {
       await authClient.signOut();
       return const Right(Success());
     } catch (_) {
-      return const Left(ApiProblemFailure());
+      return const Left(ConnectionFailure());
     }
   }
 }
