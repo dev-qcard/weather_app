@@ -18,7 +18,14 @@ class CacheManager implements ICacheManager {
 
   @override
   Future<List<WeatherInfoModel>> loadWeatherData() async {
-    final listOfWeatherMaps = await database.get(weatherKey) as List<Map<String, dynamic>>;
+    final rawListOfWeatherMaps = await database.get(weatherKey) as List<dynamic>;
+    final listOfWeatherMaps = rawListOfWeatherMaps
+        .map(
+          (e) => (e as Map<dynamic, dynamic>).map(
+            (key, value) => MapEntry(key.toString(), value),
+          ),
+        )
+        .toList();
     final listOfWeatherModels = listOfWeatherMaps.map((e) => WeatherInfoModel.fromMap(e)).toList();
     return listOfWeatherModels;
   }

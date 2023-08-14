@@ -11,35 +11,23 @@ class AutoSignInEvent extends NavigationEvent {
   List<Object?> get props => [];
 }
 
-class SignOutEvent extends NavigationEvent {
-  const SignOutEvent();
+class SignInPageEvent extends NavigationEvent {
+  const SignInPageEvent();
 
   @override
   List<Object?> get props => [];
 }
 
-class SignUpEvent extends NavigationEvent {
-  final String email;
-  final String password;
-
-  const SignUpEvent({
-    required this.email,
-    required this.password,
-  });
+class SignUpPageEvent extends NavigationEvent {
+  const SignUpPageEvent();
 
   @override
-  List<Object?> get props => [email, password];
+  List<Object?> get props => [];
 }
 
-class SignInEvent extends NavigationEvent {
-  final String email;
-  final String password;
-
-  const SignInEvent({
-    required this.email,
-    required this.password,
-  });
+class WeatherPageEvent extends NavigationEvent {
+  const WeatherPageEvent();
 
   @override
-  List<Object?> get props => [email, password];
+  List<Object?> get props => [];
 }

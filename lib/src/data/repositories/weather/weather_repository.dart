@@ -30,7 +30,6 @@ class WeatherRepository implements IWeatherRepository {
       try {
         final weatherInfoModels = await cacheManager.loadWeatherData();
         final weatherInfoEntites = weatherInfoModels.map((e) => e.toWeatherInfo()).toList();
-
         return Right(weatherInfoEntites);
       } catch (_) {
         return const Left(ConnectionFailure());
@@ -38,7 +37,13 @@ class WeatherRepository implements IWeatherRepository {
     }
 
     final permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) return const Left(LocationFailure());
+    if (permission == LocationPermission.denied) {
+      await Geolocator.requestPermission();
+      final secondTry = await Geolocator.checkPermission();
+      if (secondTry == LocationPermission.denied) {
+        return const Left(LocationFailure());
+      }
+    }
 
     final position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.medium);
 

@@ -18,27 +18,16 @@ class NavigationSignIn extends NavigationState {
   List<Object?> get props => [];
 }
 
+class NavigationWeather extends NavigationState {
+  const NavigationWeather();
+
+  @override
+  List<Object?> get props => [];
+}
+
 class NavigationLoading extends NavigationState {
   const NavigationLoading();
 
   @override
   List<Object?> get props => [];
-}
-
-class NavigationLoggedIn extends NavigationState {
-  const NavigationLoggedIn();
-
-  @override
-  List<Object?> get props => [];
-}
-
-class NavigationError extends NavigationState {
-  final String errorMessage;
-
-  const NavigationError({
-    required this.errorMessage,
-  });
-
-  @override
-  List<Object?> get props => [errorMessage];
 }
